@@ -1,4 +1,4 @@
-var api_host = "http://127.0.0.1:8000";
+var api_host = "http://173.199.123.241:8005";
 
 var app = new Vue({
     el: '#rootNode',
@@ -25,24 +25,24 @@ var app = new Vue({
             this.update_scoreranking();
         },
         update_scoreboard: function () {
-            $.getJSON("http://127.0.0.1:8000/scoreboard/board/get", (json) => {
+            $.getJSON(api_host+"/scoreboard/board/get", (json) => {
                 this.scoreboard_data = json.data;
             });
         },
         update_scoreboard_more: function() {
-            $.getJSON("http://127.0.0.1:8000/scoreboard/board/get_by_date", {
+            $.getJSON(api_host+"/scoreboard/board/get_by_date", {
                 "date": this.scoreboard_more_date
             }, (json) => {
                 this.scoreboard_more_data = json.data;
             });
         },
         update_scoreranking: function() {
-            $.getJSON("http://127.0.0.1:8000/scoreboard/rank/get", (json) => {
+            $.getJSON(api_host+"/scoreboard/rank/get", (json) => {
                 this.scoreranking_data = json.data;
             });
         },
         update_scoreranking_more: function(type) {
-            $.getJSON("http://127.0.0.1:8000/scoreboard/rank/get_by_type", {
+            $.getJSON(api_host+"/scoreboard/rank/get_by_type", {
                 "type": type
             }, (json) => {
                 this.scoreranking_more_data = json.data;
@@ -54,7 +54,7 @@ var app = new Vue({
             this.scorer_password = $("#login_password").val();
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/scorer/login",
+                url: api_host+"/scorer/login",
                 data: {
                     "username": this.scorer_username,
                     "password": this.scorer_password
@@ -89,7 +89,7 @@ var app = new Vue({
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: "http://127.0.0.1:8000/scorer/submit_score",
+                    url: api_host+"/scorer/submit_score",
                     data: {
                         "scores": items,
                         "scores_reason": items_reason,
@@ -106,7 +106,7 @@ var app = new Vue({
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: "http://127.0.0.1:8000/scorer/submit_score",
+                    url: api_host+"/scorer/submit_score",
                     data: {
                         "scores": items,
                         "scores_reason": items_reason,
