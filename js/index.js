@@ -1,4 +1,4 @@
-var api_host = "http://173.199.123.241:8005";
+var api_host = "http://127.0.0.1:8000";
 
 var app = new Vue({
     el: '#rootNode',
@@ -9,6 +9,9 @@ var app = new Vue({
         scoreranking_data: new Array(),
         scoreranking_more_data: new Array(),
         scoreranking_more_type: new String(),
+        scoremoments_data: new Array(),
+        scoremoments_loss_data: new Array(),
+        scoremoments_class_name: new String(),
         scorerboard_status: new Number(),
         scorerboard_size: new Number(),
         scorerboard_head: new Array(),
@@ -23,6 +26,7 @@ var app = new Vue({
         update_all: function () {
             this.update_scoreboard();
             this.update_scoreranking();
+            this.update_scoremoments();
         },
         update_scoreboard: function () {
             $.getJSON(api_host+"/scoreboard/board/get", (json) => {
@@ -39,6 +43,18 @@ var app = new Vue({
         update_scoreranking: function() {
             $.getJSON(api_host+"/scoreboard/rank/get", (json) => {
                 this.scoreranking_data = json.data;
+            });
+        },
+        update_scoremoments: function() {
+            $.getJSON(api_host+"/scoreboard/moments/get", (json) => {
+                this.scoremoments_data = json.data;
+            });
+        },
+        update_scoremoments_loss: function() {
+            $.getJSON(api_host+"/scoreboard/moments/get_by_class", {
+                "className": this.scoremoments_class_name
+            }, (json) => {
+                this.scoremoments_loss_data = json.data;
             });
         },
         update_scoreranking_more: function(type) {

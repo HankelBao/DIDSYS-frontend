@@ -24,7 +24,7 @@
         <b-container>
           <b-row class="justify-content-md-center">
             <b-col md="auto">
-              <b-nav is-nav-bar class="auto" v-b-scrollspy="-5">
+              <b-nav is-nav-bar class="auto" v-b-scrollspy="+16">
                 <b-nav-item href="#Home">Home</b-nav-item>
                 <b-nav-item href="#ScoreBoard">ScoreBoard</b-nav-item>
                 <b-nav-item href="#ScoreRanking">ScoreRanking</b-nav-item>
@@ -66,7 +66,7 @@
       <b-row>
         <b-col>
           <div style="text-align:right">
-            <a data-toggle="modal" data-target="#modal_scoreboard_more"><u>More On ScoreBoard</u></a>
+            <a data-toggle="modal" data-target="#modal_scoreboard_more"><u>Search ScoreBoard by Date</u></a>
           </div>
         </b-col>
       </b-row>
@@ -89,7 +89,30 @@
       <b-row>
         <b-col>
           <div style="text-align:right">
-            <a data-toggle="modal" data-target="#modal_scoreranking_more"><u>More On ScoreRanking</u></a>
+            <a data-toggle="modal" data-target="#modal_scoreranking_more"><u>See Rankings by Week, Month or Semister</u></a>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+
+    <!--ScoreMoments-->
+    <b-container id="ScoreMoments">
+      <b-row><br><br><br><br></b-row>
+      <b-row>
+        <b-col>
+          <h1 style="text-align:center">ScoreMoments</h1>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-table :items="scoremoments_data">
+          </b-table>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <div style="text-align:right">
+            <a data-toggle="modal" data-target="#modal_scoremoments_loss"><u>Check When a Class Loss Points</u></a>
           </div>
         </b-col>
       </b-row>
@@ -297,6 +320,34 @@
       </div>
     </div>
 
+    <!--ScoreMoments Check Class Lossing Points Modal-->
+    <div class="modal fade" id="modal_scoremoments_loss" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div id="modal_content" class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">
+              History when {{scoremoments_class_name}} Loss Points
+            </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
+          </div>
+          <div class="modal-body">
+            <div class="py-5">
+              <div class="row">
+                <div class="col-md-12">
+                  <b-table :items="scoremoments_loss_data">
+                  </b-table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input v-model="scoremoments_class_name" type="text" class="form-control" placeholder="Enter Class Name" />
+            <button @click="update_scoremoments_loss" type="button" class="btn btn-default">Update</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="/js/jquery.js"></script>
