@@ -92,6 +92,25 @@ var app = new Vue({
                 }
             });
         },
+        scorerboard_scores_reload: function() {
+            $.ajax({
+                type: "POST",
+                url: api_host+"/scorer/get_scores_by_date",
+                data: {
+                    "username": this.scorer_username,
+                    "password": this.scorer_password,
+                    "date": this.scorer_admin_date
+                },
+                success: (json) => {
+                    if (json.status == 0) {
+                        this.scorerboard_status = 0;
+                        return;
+                    }
+                    this.scorerboard_status = 1;
+                    this.scorerboard_body = json.scorerboard_body;
+                }
+            });
+        },
         score_submit: function() { 
             items_counter = this.scorerboard_size;
             var items = new Array();
